@@ -32,9 +32,18 @@ Additionally, as each training job persists meta-data about training data, hyper
 
         $python src/test_main.py
 
-4.  Update the run/run-in-the-cloud.py with the right IAM role and Image name
+4.  Build a custom docker image using the Dockerfile and build_and_push.sh script:
 
-5.  Run a training job in SageMaker
+    Make sure docker is running and run:
+
+        $sh build_and_push.sh <AWS-ACCOUNT-NUMBER> <AWS-REGION> <NAME-OF-ECR-REPO>
+
+5.  Update the **run/run-in-the-cloud.py** and **run/run-using-local-mode.py** with the right IAM role and ECR repository name
+
+    - IAM role: Make sure the role you're using has sufficient permissions. If you're unsure you can start with AmazonSageMakerFullAccess ([documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonSageMakerFullAccess) and [IAM policy](https://us-east-1.console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AmazonSageMakerFullAccess$jsonEditor)) for demo purposes.
+    - ECR repository name: The same value you used in step 4.
+
+6.  Run a training job in SageMaker
 
     ->Local mode: This allows you run a SageMaker training job but locally.
 
@@ -45,6 +54,8 @@ Additionally, as each training job persists meta-data about training data, hyper
 
         $cd run
         $python run-in-the-cloud.py
+
+    You can directly access your training job from the hyperlink in the logs !
 
 ## FAQ
 
